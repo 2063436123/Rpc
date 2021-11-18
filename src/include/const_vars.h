@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <string>
 
-enum class RequestType : uint8_t {  unparsed = 0, normal_req, sub_pub, heartbeat};
+enum class RequestType : uint8_t {  unparsed = 0, normal_req, success_response, failure_response, sub_pub, heartbeat, test};
 
 struct RpcHeader {
     uint64_t request_id;
@@ -16,12 +16,13 @@ struct RpcHeader {
 };
 
 // 为什么不使用sizeof？因为sizeof结果包含了padding，而我们网络传输逐字段进行，不涉及padding
-constexpr int RPC_HEADER_SIZE = sizeof(RpcHeader::request_id) + sizeof(RpcHeader::type) + sizeof(RpcHeader::body_len);
+const int RPC_HEADER_SIZE = sizeof(RpcHeader::request_id) + sizeof(RpcHeader::type) + sizeof(RpcHeader::body_len);
+
+const int DEFAULT_REQUEST_TIMEOUT = 5 * 1000; // ms
 
 // 被保存在TcpConnection类中
 struct RpcMeta {
     RpcHeader header{};
-    std::string body{};
     // todo
 };
 

@@ -22,8 +22,19 @@ set(SRCS
         ${THIRD_SRCS}
         src/impl/ServiceRegistrationDiscovery.cpp)
 
+# zookeeper test
 add_executable(ServiceRegisterTest Tests/ServiceRegisterTest.cpp ${SRCS})
 add_executable(ServiceDiscoverTest Tests/ServiceDiscoverTest.cpp ${SRCS})
 
+# basic test
 add_executable(RpcServer Tests/RpcServerTest.cpp ${SRCS})
 add_executable(RpcClient Tests/RpcClientTest.cpp ${SRCS})
+
+# protobuf test
+add_subdirectory(Tests/protobufTest)
+
+# codec test
+add_executable(CodecTest Tests/CodecTest.cpp ${SRCS})
+
+# funcVerify test
+add_executable(FuncVerifyTest Tests/FuncVerifyTest.cpp ${SRCS})

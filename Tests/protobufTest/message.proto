@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package Hello;
+
+message HelloRequest {
+  optional string str = 1;
+  repeated int32 vec = 2;
+}
+
+message HelloResponse {
+  optional string str = 1;
+  repeated int32 vec = 2;
+}

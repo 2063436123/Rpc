@@ -32,8 +32,18 @@ public:
         CHECK();
     }
 
-    // 在已存在的服务节点下添加自己的ip_port
+    // 查看指定服务是否存在
+    bool is_service_exist(const std::string& service_name) {
+        std::string path = "/services/" + service_name;
+        int rc = zoo_exists(zh_, path.c_str(), 0, nullptr);
+        CHECK();
+        return rc == ZOK;
+    }
+
+    // 在服务节点下添加自己的ip_port
     void register_service(const std::string &service_name, const std::string &ip_port) {
+        if (!is_service_exist(service_name))
+            add_new_service(service_name);
         static char buf[512];
         std::string path = "/services/" + service_name + "/" + ip_port;
         int rc = zoo_create(zh_, path.c_str(), nullptr, -1, &ZOO_OPEN_ACL_UNSAFE, ZOO_EPHEMERAL, buf, sizeof(buf) - 1);
@@ -82,16 +92,17 @@ public:
     }
 
     // 返回一个会被实时更新的服务列表，not thread-safe.
-    static const auto& services() {
+    static const auto &services() {
         return services_;
     }
+
 private:
-    static void handleChange(const std::string& path) {
+    static void handleChange(const std::string &path) {
         // 1. 添加新服务 path = '/services'
         // 2. 添加新服务器 path = '/services/service_name'
         if (path == "/services") {
             auto services = rd_.find_services();
-            for (const auto& service_name : services) {
+            for (const auto &service_name: services) {
                 if (!services_.contains(service_name)) {
                     auto providers = rd_.search_service_provider(service_name);
                     services_[service_name] = providers;
@@ -107,17 +118,17 @@ private:
 
     static void refresh() {
         auto services = rd_.find_services();
-        for (const auto& service_name : services) {
+        for (const auto &service_name: services) {
             auto providers = rd_.search_service_provider(service_name);
             services_[service_name] = providers;
         }
     }
 
     static void watcher(zhandle_t *zzh, int type, int state, const char *path,
-                            void *watcherCtx) {
+                        void *watcherCtx) {
         using std::cout;
         using std::endl;
-        cout << "in watcher: ";
+        cout << "in zookeeper watcher: ";
         if (type == ZOO_SESSION_EVENT) {
             // state refers to states of zookeeper connection.
             // To keep it simple, we would demonstrate these 3: ZOO_EXPIRED_SESSION_STATE, ZOO_CONNECTED_STATE, ZOO_NOTCONNECTED_STATE
