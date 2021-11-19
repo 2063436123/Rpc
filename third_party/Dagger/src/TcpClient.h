@@ -9,6 +9,7 @@
 #include <sys/timerfd.h>
 
 #include "InAddr.h"
+#include "Codec.h"
 #include "Logger.h"
 #include "Socket.h"
 #include "Buffer.h"
@@ -16,7 +17,6 @@
 #include "TcpConnection.h"
 #include "TcpSource.h"
 #include "EventLoopPool.h"
-#include "Codec.h"
 
 class TcpClient : public TcpSource {
 public:

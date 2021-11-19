@@ -82,13 +82,17 @@ public:
 
     }
 
+    void stop() {
+        client_.stop();
+
+    }
+
     void join() {
         client_.join();
     }
 
 private:
     void handle_response(TcpConnection *conn) {
-        std::cout << "in handle_response" << std::endl;
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
         assert(header.type == RequestType::success_response); // for test
         if (header.type == RequestType::success_response) {
@@ -101,7 +105,6 @@ private:
             }
             std::string body(conn->readBuffer().peek(), header.body_len);
             conn->readBuffer().retrieve(header.body_len);
-            std::cout << "body: " << body << std::endl;
             iter->second(std::move(body));
 
             // 同一时刻只会有一个线程阻塞在cv_上, notify_one == notify_all

@@ -16,13 +16,13 @@ public:
         header.request_id = *(uint64_t *) p;
         header.type = *(RequestType *) (p + 8);
         header.body_len = *(uint32_t *) (p + 9);
-    }
+       }
 
     static bool IsHeader(TcpConnection *conn) {
         return conn->readBuffer().readableBytes() >= RPC_HEADER_SIZE;
     }
 
-    static void read_head(TcpConnection *conn, const std::function<void(TcpConnection *)> &cb_) {
+    static void read_head(TcpConnection *conn, std::function<void(TcpConnection *)> cb_) {
         if (!conn->data()) {
             conn->setData((char *) new RpcMeta);
         }

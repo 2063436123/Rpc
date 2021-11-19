@@ -80,8 +80,6 @@ public:
     }
 
     void append(const char *s, size_t len) {
-        if (len == 0)
-            return;
         if (writableBytes() < len) {
             if (discardableBytes() >= len) {
                 // 复用discarded空间

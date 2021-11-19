@@ -14,5 +14,6 @@ int main() {
     ret = client.sync_call<std::string>("say_hello", std::string("world"));
     cout << ret << endl;
     //client.sync_call<void>("make_high");
-    cout << "client end" << endl;;
+    cout << "client end" << endl;
+    client.stop();
 }

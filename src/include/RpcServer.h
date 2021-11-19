@@ -19,16 +19,17 @@ public:
     explicit RpcServer(InAddr addr) : server_(Socket::makeNewSocket(), addr, &loop_, Codec(HeaderHelper::IsHeader)),
                                       ip_port_str_(addr.ipPortStr()) {
         server_.setConnMsgCallback([this](TcpConnection *conn) {
-            HeaderHelper::read_head(conn, std::bind(&RpcServer::forward_request, this, std::placeholders::_1));
+            HeaderHelper::read_head(conn, [this](TcpConnection *conn) { forward_request(conn); });
         });
     }
 
     template<typename Func>
     // todo1 const Func& -> Func?
-    void register_service(const std::string &service_name, const Func& func) {
+    void register_service(const std::string &service_name, const Func &func) {
         registrant_.register_service(service_name, ip_port_str_);
         // note: 必须用decay_t将Func转换为函数指针类型
-        service_callbacks_[service_name] = std::bind(invoker<std::decay_t<Func>>, std::move(func), std::placeholders::_1);
+        service_callbacks_[service_name] = std::bind(invoker < std::decay_t<Func>>, std::move(
+                func), std::placeholders::_1);
     }
 
     void start(int helperThreads = 0) {
@@ -37,7 +38,7 @@ public:
 
 private:
     template<typename Func>
-    static std::string invoker(const Func& func, std::string body) {
+    static std::string invoker(const Func &func, std::string body) {
         using args_type = typename function_traits<Func>::args_tuple;
         auto tpl = MessageCodec::unpack<args_type>(body);
         std::string response_body;

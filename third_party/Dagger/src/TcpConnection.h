@@ -52,11 +52,11 @@ public:
         return writeBuffer_;
     }
 
-    char* data() {
+    void* data() {
         return data_;
     }
 
-    void setData(char* ptr) {
+    void setData(void* ptr) {
         data_ = ptr;
     }
 
@@ -100,16 +100,14 @@ public:
 
     // fixed 无法声明默认的析构函数，否则会引起TcpServer::readCallback()函数中的connections.insert插入错误！
     // 因为之前未声明移动构造函数，而显式声明一个（即使是默认的）析构函数会将移动构造函数定义为隐式删除的！
-    ~TcpConnection() {
-        delete data_;
-    }
+    ~TcpConnection() = default;
 
 private:
     void sendNonblock();
 
 private:
     Buffer<IO_BUFFER_SIZE> readBuffer_, writeBuffer_; // read和write是相对于用户而言
-    char* data_; // data_会自动释放
+    void *data_ = nullptr;
     Event* event_; // 当前连接对应的epoller中的event，todo 记得delete
     Socket socket_;
     bool isWillClose_;
