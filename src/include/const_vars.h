@@ -8,7 +8,7 @@
 #include <string>
 #include <Timer.h>
 
-enum class RequestType : uint8_t {  unparsed = 0, normal_req, success_response, failure_response, sub_pub, heartbeat, test};
+enum class RequestType : uint8_t {  unparsed = 0, normal_req, success_response, failure_response, subscribe, publish, broadcast, heartbeat, test};
 
 struct RpcHeader {
     uint64_t request_id;
@@ -33,7 +33,6 @@ struct RpcMeta {
         heartbeat_handler.cancelTimer();
         helper_handler.cancelTimer();
     }
-    // todo
 };
 
 

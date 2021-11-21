@@ -10,7 +10,7 @@
 #include "Util.h"
 #include <TcpClient.h>
 #include <Timer.h>
-
+#include <unordered_set>
 #include <utility>
 
 // RpcClient仅支持被单个线程调用, 虽然其内部client可以是多线程的.
@@ -30,7 +30,7 @@ public:
             HeaderHelper::read_head(conn, [this](TcpConnection *conn) { handle_response(conn); });
         });
         client_.setConnCloseCallback([this](TcpConnection *conn) {
-            delete (RpcMeta*)conn->data();
+            delete (RpcMeta *) conn->data();
             Logger::info("服务器失去连接!\n");
             stop();
         });
@@ -123,6 +123,15 @@ public:
         };
     }
 
+    void subscribe(const std::string &channel, std::function<void(std::string)> cb) {
+        Sender::send(main_conn, 0, RequestType::subscribe, MessageCodec::pack(channel));
+        subscribed_channels_[channel] = std::move(cb);
+    }
+
+    void publish(const std::string &channel, const std::string &message) {
+        Sender::send(main_conn, 0, RequestType::publish, MessageCodec::pack(channel, message));
+    }
+
     void stop() {
         client_.stop();
     }
@@ -145,42 +154,52 @@ private:
     }
 
     void handle_response(TcpConnection *conn) {
+        // 1. 验证header并提取body
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
         if (conn->readBuffer().readableBytes() < header.body_len)
             return;
 
-        auto iter = sent_requests_.find(header.request_id);
-        if (header.request_id != 0 && iter == sent_requests_.end()) {
-            throw std::runtime_error(
-                    "haven't sent this request!, request_id = " + std::to_string(header.request_id));
+        auto req_iter = sent_requests_.find(header.request_id);
+        if (header.request_id != 0) {
+            if (req_iter == sent_requests_.end())
+                throw std::runtime_error(
+                        "haven't sent this request!, request_id = " + std::to_string(header.request_id));
+            else
+                sent_requests_.erase(req_iter);
         }
         std::string body(conn->readBuffer().peek(), header.body_len);
         conn->readBuffer().retrieve(header.body_len);
 
+        // 2. 分类处理不同消息
         if (header.type == RequestType::success_response) {
-            iter->second(ErrorCode(ErrorCode::NO_ERROR), std::move(body));
+            req_iter->second(ErrorCode(ErrorCode::NO_ERROR), std::move(body));
             // 同一时刻只会有一个线程阻塞在cv_上, notify_one == notify_all
             cv_.notify_one();
         } else if (header.type == RequestType::failure_response) {
-            if (conn->readBuffer().readableBytes() < header.body_len)
-                return;
-            iter->second(ErrorCode(ErrorCode::ERROR, body), "");
+            req_iter->second(ErrorCode(ErrorCode::ERROR, body), "");
         } else if (header.type == RequestType::heartbeat) {
-            std::cout << "receive heartbeat package" << std::endl;
             auto &heartbeat_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->heartbeat_handler;
             heartbeat_handler.resetOneTask(DEFAULT_HEARTBEAT_INTERVAL * DEFAULT_RETRY_TIMES);
+        } else if (header.type == RequestType::broadcast) {
+            auto infos = MessageCodec::unpack<std::tuple<std::string, std::string>>(body);
+            auto sub_iter = subscribed_channels_.find(std::get<0>(infos));
+            if (sub_iter == subscribed_channels_.end())
+                throw std::runtime_error("haven't subscribed this channel!");
+            sub_iter->second(std::get<1>(infos));
         } else {
             // todo
         }
+
+        // 3. 清空header，进行下一次消息监听
         header.type = RequestType::unparsed; // ready for next request
         if (HeaderHelper::IsHeader(conn))
             HeaderHelper::read_head(conn, [this](TcpConnection *conn) { handle_response(conn); });
-
     }
 
     using CallbackType = std::function<void(ErrorCode, std::string)>;
 
     std::unordered_map<uint64_t, CallbackType> sent_requests_;
+    std::unordered_map<std::string, std::function<void(std::string)>> subscribed_channels_;
 
     std::mutex cond_mutex_;
     std::condition_variable cv_;

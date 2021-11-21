@@ -33,7 +33,6 @@ public:
     }
 
     template<typename Func>
-    // todo1 const Func& -> Func?
     void register_service(const std::string &service_name, const Func &func) {
         registrant_.register_service(service_name, ip_port_str_);
         // note: 必须用decay_t将Func转换为函数指针类型
@@ -66,10 +65,8 @@ private:
         return response_body;
     }
 
-    void handle_normal_req(TcpConnection *conn) {
+    void handle_normal_req(TcpConnection *conn, const std::string& body) {
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
-        std::string body(conn->readBuffer().peek(), header.body_len);
-        conn->readBuffer().retrieve(header.body_len);
 
         auto service_name = MessageCodec::unpack<std::string>(body);
         auto iter = service_callbacks_.find(service_name);
@@ -79,7 +76,7 @@ private:
         }
         std::string response_body;
         try {
-            response_body = iter->second(std::move(body));
+            response_body = iter->second(body);
         } catch (const std::exception &e) {
             Sender::send(conn, header.request_id, RequestType::failure_response, e.what());
             return;
@@ -88,18 +85,35 @@ private:
     }
 
     void forward_request(TcpConnection *conn) {
+        // 1. 验证header并提取body
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
         if (conn->readBuffer().readableBytes() < header.body_len)
             return;
+        std::string body(conn->readBuffer().peek(), header.body_len);
+        conn->readBuffer().retrieve(header.body_len);
+
+        // 2. 分类处理不同消息
         if (header.type == RequestType::normal_req) {
-            handle_normal_req(conn);
+            handle_normal_req(conn, body);
         } else if (header.type == RequestType::heartbeat) {
-            std::cout << "receive heartbeat package" << std::endl;
             auto &heartbeat_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->heartbeat_handler;
             heartbeat_handler.resetOneTask(DEFAULT_HEARTBEAT_INTERVAL * DEFAULT_RETRY_TIMES);
+        } else if (header.type == RequestType::subscribe){
+            auto channelName = MessageCodec::unpack<std::string>(body);
+            subscribers_[channelName].push_back(conn);
+            //
+        } else if (header.type == RequestType::publish) {
+            auto infos = MessageCodec::unpack<std::tuple<std::string, std::string>>(body);
+            const auto& subs = subscribers_[std::get<0>(infos)];
+            for (auto sub_conn : subs) {
+                // todo 验证conn的有效性
+                Sender::send(sub_conn, 0, RequestType::broadcast, body);
+            }
         } else {
             // todo
         }
+
+        // 3. 清空header，进行下一次消息监听
         header.type = RequestType::unparsed; // ready for next request
         if (HeaderHelper::IsHeader(conn))
             HeaderHelper::read_head(conn, [this](TcpConnection *conn) { forward_request(conn); });
@@ -107,6 +121,7 @@ private:
 
     using CallbackType = std::function<std::string(std::string)>;
     std::unordered_map<std::string, CallbackType> service_callbacks_;
+    std::unordered_map<std::string, std::vector<TcpConnection*>> subscribers_;
 
     ServiceRegistrationDiscovery registrant_;
     std::string ip_port_str_;

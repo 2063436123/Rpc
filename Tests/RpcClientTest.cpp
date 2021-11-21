@@ -33,6 +33,18 @@ void test2() {
     client.join();
 }
 
+void test3() {
+    RpcClient client(InAddr("127.10.0.1:5556"));
+    client.subscribe("hello", [](std::string str) {
+        std::cout << "broadcast: " << str << std::endl;
+    });
+    std::string msg;
+    getline(cin, msg);
+    client.publish("hello", msg);
+    cout << "client end" << endl;
+    client.join();
+}
+
 int main() {
-    test2();
+    test3();
 }

@@ -42,12 +42,13 @@ TimerHandler Timer::addOneTask(uint32_t occurTime, const std::function<void()> &
 
     auto epoller = loop_->epoller();
     auto timerEvent = Event::make(timerfd, epoller);
-    auto readCallback = [timerfd = timerfd, task, timerEvent, epoller]() {
+    auto readCallback = [timerfd = timerfd, task, timerEvent]() {
         uint64_t tmp;
         read(timerfd, &tmp, sizeof(tmp));
         task();
         // timer到期
-        epoller->removeEvent(timerEvent);
+        timerEvent->epoller()->removeEvent(timerEvent);
+        close(timerfd);
     };
     timerEvent->setReadCallback(readCallback);
     timerEvent->setReadable(true);
