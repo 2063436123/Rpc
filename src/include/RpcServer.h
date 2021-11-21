@@ -16,10 +16,19 @@
 // 4. 解包封包 + 回调对应本地函数
 class RpcServer {
 public:
-    explicit RpcServer(InAddr addr) : server_(Socket::makeNewSocket(), addr, &loop_, Codec(HeaderHelper::IsHeader)),
+    explicit RpcServer(InAddr addr) : timer_(&loop_),
+                                      server_(Socket::makeNewSocket(), addr, &loop_, Codec(HeaderHelper::IsHeader)),
                                       ip_port_str_(addr.ipPortStr()) {
+        server_.setConnEstaCallback([this](TcpConnection *conn) {
+            std::cout << "newConn: " << conn->socket().fd() << std::endl;
+            conn->setData((char *) new RpcMeta);
+            start_heartbeat(conn);
+        });
         server_.setConnMsgCallback([this](TcpConnection *conn) {
             HeaderHelper::read_head(conn, [this](TcpConnection *conn) { forward_request(conn); });
+        });
+        server_.setConnCloseCallback([](TcpConnection *conn) {
+            delete (RpcMeta*)conn->data();
         });
     }
 
@@ -37,6 +46,17 @@ public:
     }
 
 private:
+    void start_heartbeat(TcpConnection *conn) {
+        auto &heartbeat_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->heartbeat_handler;
+        heartbeat_handler = timer_.addOneTask(DEFAULT_HEARTBEAT_INTERVAL * DEFAULT_RETRY_TIMES, [this]() {
+            Logger::info("一个客户端失去连接!\n");
+        });
+        auto &helper_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->helper_handler;
+        helper_handler = timer_.addTimedTask(0, DEFAULT_HEARTBEAT_INTERVAL, [conn]() {
+            Sender::send(conn, 0, RequestType::heartbeat, "");
+        });
+    }
+
     template<typename Func>
     static std::string invoker(const Func &func, std::string body) {
         using args_type = typename function_traits<Func>::args_tuple;
@@ -69,20 +89,20 @@ private:
 
     void forward_request(TcpConnection *conn) {
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
-        assert(header.type == RequestType::normal_req); // for test
+        if (conn->readBuffer().readableBytes() < header.body_len)
+            return;
         if (header.type == RequestType::normal_req) {
-            if (conn->readBuffer().readableBytes() < header.body_len)
-                return;
             handle_normal_req(conn);
-        } else if (header.type == RequestType::test) {
-            assert(conn->readBuffer().readableBytes() >= header.body_len);
-            Sender::send(conn, 0, RequestType::test,
-                         std::string(conn->readBuffer().peek(), header.body_len) + ", hello~");
-            conn->readBuffer().retrieve(header.body_len);
+        } else if (header.type == RequestType::heartbeat) {
+            std::cout << "receive heartbeat package" << std::endl;
+            auto &heartbeat_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->heartbeat_handler;
+            heartbeat_handler.resetOneTask(DEFAULT_HEARTBEAT_INTERVAL * DEFAULT_RETRY_TIMES);
         } else {
             // todo
         }
         header.type = RequestType::unparsed; // ready for next request
+        if (HeaderHelper::IsHeader(conn))
+            HeaderHelper::read_head(conn, [this](TcpConnection *conn) { forward_request(conn); });
     }
 
     using CallbackType = std::function<std::string(std::string)>;
@@ -91,6 +111,7 @@ private:
     ServiceRegistrationDiscovery registrant_;
     std::string ip_port_str_;
     EventLoop loop_;
+    Timer timer_;
     TcpServer server_;
 };
 

@@ -17,7 +17,8 @@ set(THIRD_SRCS
         third_party/Dagger/src/Sources/EventLoop.cpp
         third_party/Dagger/src/Sources/Logger.cpp
         third_party/Dagger/src/Sources/TcpServer.cpp
-        third_party/Dagger/src/Sources/ObjectPool.cpp)
+        third_party/Dagger/src/Sources/ObjectPool.cpp
+        third_party/Dagger/src/Sources/Timer.cpp)
 set(SRCS
         ${THIRD_SRCS}
         src/impl/ServiceRegistrationDiscovery.cpp)
@@ -28,7 +29,7 @@ add_executable(ServiceDiscoverTest Tests/ServiceDiscoverTest.cpp ${SRCS})
 
 # basic test
 add_executable(RpcServer Tests/RpcServerTest.cpp ${SRCS})
-add_executable(RpcClient Tests/RpcClientTest.cpp ${SRCS})
+add_executable(RpcClient Tests/RpcClientTest.cpp ${THIRD_SRCS})
 
 # protobuf test
 add_subdirectory(Tests/protobufTest)
@@ -38,3 +39,6 @@ add_executable(CodecTest Tests/CodecTest.cpp ${SRCS})
 
 # funcVerify test
 add_executable(FuncVerifyTest Tests/FuncVerifyTest.cpp ${SRCS})
+
+# logger stop test
+add_executable(LoggerTest Tests/LoggerTest.cpp ${THIRD_SRCS})

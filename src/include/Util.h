@@ -16,6 +16,7 @@ public:
         header.request_id = *(uint64_t *) p;
         header.type = *(RequestType *) (p + 8);
         header.body_len = *(uint32_t *) (p + 9);
+        std::cout << "parse result: " << header.request_id << " " << (int)header.type << " " << header.body_len << std::endl;
        }
 
     static bool IsHeader(TcpConnection *conn) {
@@ -23,9 +24,7 @@ public:
     }
 
     static void read_head(TcpConnection *conn, std::function<void(TcpConnection *)> cb_) {
-        if (!conn->data()) {
-            conn->setData((char *) new RpcMeta);
-        }
+        assert(conn->data());
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
         if (header.type == RequestType::unparsed) {
             parseRpcHeader(conn->readBuffer().peek(), header);

@@ -16,9 +16,16 @@ std::string say_hello(std::string message) {
     return "hello, " + message;
 }
 
+UDT enforce_udt(UDT udt) {
+    udt.a_ *= 10;
+    udt.b_ += "enforce.";
+    return udt;
+}
+
 int main() {
     RpcServer server(InAddr("0.0.0.0:5556"));
     server.register_service("say_hello", say_hello);
     server.register_service("make_high", make_high);
+    server.register_service("enforce_udt", enforce_udt);
     server.start();
 }
