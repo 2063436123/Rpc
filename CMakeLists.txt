@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(testLinux)
 
 set(CMAKE_CXX_STANDARD 20)
+add_compile_options(-fconcepts)
 
 link_libraries(pthread gtest zookeeper_mt)
 

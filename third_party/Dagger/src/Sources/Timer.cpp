@@ -42,13 +42,12 @@ TimerHandler Timer::addOneTask(uint32_t occurTime, const std::function<void()> &
 
     auto epoller = loop_->epoller();
     auto timerEvent = Event::make(timerfd, epoller);
-    auto readCallback = [timerfd = timerfd, task, timerEvent]() {
+    auto readCallback = [timerfd = timerfd, task, timerEvent, epoller]() {
         uint64_t tmp;
         read(timerfd, &tmp, sizeof(tmp));
         task();
         // timer到期
-        timerEvent->epoller()->removeEvent(timerEvent);
-        close(timerfd);
+        epoller->removeEvent(timerEvent);
     };
     timerEvent->setReadCallback(readCallback);
     timerEvent->setReadable(true);
@@ -65,6 +64,9 @@ void TimerHandler::resetOneTask(uint32_t time) {
 }
 
 void TimerHandler::cancelTimer() {
+    // 默认初始化或被cancel的TimerHandler是无效的
+    if (timerfd_ == 0)
+        return;
     timespec nxtTime{.tv_sec = 0, .tv_nsec = 0};
     timespec interTime{.tv_sec = 0, .tv_nsec = 0};
     struct itimerspec spec{.it_interval = interTime, .it_value = nxtTime};
@@ -74,4 +76,5 @@ void TimerHandler::cancelTimer() {
     // 销毁timerfd
     event_->epoller()->removeEvent(event_);
     close(timerfd_);
+    this->timerfd_ = 0;
 }

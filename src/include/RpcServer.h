@@ -28,7 +28,7 @@ public:
             HeaderHelper::read_head(conn, [this](TcpConnection *conn) { forward_request(conn); });
         });
         server_.setConnCloseCallback([](TcpConnection *conn) {
-            delete (RpcMeta*)conn->data();
+            delete (RpcMeta *) conn->data();
         });
     }
 
@@ -50,7 +50,7 @@ private:
         heartbeat_handler = timer_.addOneTask(DEFAULT_HEARTBEAT_INTERVAL * DEFAULT_RETRY_TIMES, [this]() {
             Logger::info("一个客户端失去连接!\n");
         });
-        auto &helper_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->helper_handler;
+        auto &helper_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->heartbeat_helper_handler;
         helper_handler = timer_.addTimedTask(0, DEFAULT_HEARTBEAT_INTERVAL, [conn]() {
             Sender::send(conn, 0, RequestType::heartbeat, "");
         });
@@ -65,7 +65,7 @@ private:
         return response_body;
     }
 
-    void handle_normal_req(TcpConnection *conn, const std::string& body) {
+    void handle_normal_req(TcpConnection *conn, const std::string &body) {
         auto &header = (reinterpret_cast<RpcMeta *>(conn->data()))->header;
 
         auto service_name = MessageCodec::unpack<std::string>(body);
@@ -98,14 +98,14 @@ private:
         } else if (header.type == RequestType::heartbeat) {
             auto &heartbeat_handler = (reinterpret_cast<RpcMeta *>(conn->data()))->heartbeat_handler;
             heartbeat_handler.resetOneTask(DEFAULT_HEARTBEAT_INTERVAL * DEFAULT_RETRY_TIMES);
-        } else if (header.type == RequestType::subscribe){
+        } else if (header.type == RequestType::subscribe) {
             auto channelName = MessageCodec::unpack<std::string>(body);
             subscribers_[channelName].push_back(conn);
             //
         } else if (header.type == RequestType::publish) {
             auto infos = MessageCodec::unpack<std::tuple<std::string, std::string>>(body);
-            const auto& subs = subscribers_[std::get<0>(infos)];
-            for (auto sub_conn : subs) {
+            const auto &subs = subscribers_[std::get<0>(infos)];
+            for (auto sub_conn: subs) {
                 // todo 验证conn的有效性
                 Sender::send(sub_conn, 0, RequestType::broadcast, body);
             }
@@ -121,7 +121,7 @@ private:
 
     using CallbackType = std::function<std::string(std::string)>;
     std::unordered_map<std::string, CallbackType> service_callbacks_;
-    std::unordered_map<std::string, std::vector<TcpConnection*>> subscribers_;
+    std::unordered_map<std::string, std::vector<TcpConnection *>> subscribers_;
 
     ServiceRegistrationDiscovery registrant_;
     std::string ip_port_str_;

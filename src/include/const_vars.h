@@ -28,10 +28,10 @@ const int DEFAULT_REQUEST_TIMEOUT = 5 * 1000; // ms
 struct RpcMeta {
     RpcHeader header{};
     TimerHandler heartbeat_handler;
-    TimerHandler helper_handler;
+    TimerHandler heartbeat_helper_handler;
     ~RpcMeta() {
         heartbeat_handler.cancelTimer();
-        helper_handler.cancelTimer();
+        heartbeat_helper_handler.cancelTimer();
     }
 };
 

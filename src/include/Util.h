@@ -16,8 +16,9 @@ public:
         header.request_id = *(uint64_t *) p;
         header.type = *(RequestType *) (p + 8);
         header.body_len = *(uint32_t *) (p + 9);
-        std::cout << "parse result: " << header.request_id << " " << (int)header.type << " " << header.body_len << std::endl;
-       }
+        std::cout << "parse result: " << header.request_id << " " << (int) header.type << " " << header.body_len
+                  << std::endl;
+    }
 
     static bool IsHeader(TcpConnection *conn) {
         return conn->readBuffer().readableBytes() >= RPC_HEADER_SIZE;
@@ -39,14 +40,13 @@ public:
 class Sender {
 public:
     static void send(TcpConnection *conn, uint64_t request_id, RequestType type, const std::string &body) {
-        std::cout << "send from client/server: " << (int)type << " " << body << std::endl;
-
         uint32_t body_len = static_cast<uint32_t>(body.size());
         conn->writeBuffer().append(reinterpret_cast<char *>(&request_id), sizeof(request_id));
         conn->writeBuffer().append(reinterpret_cast<char *>(&type), sizeof(type));
         conn->writeBuffer().append(reinterpret_cast<char *>(&body_len), sizeof(body_len));
         conn->writeBuffer().append(body.c_str(), body.size());
         conn->send();
+        std::cout << "send from client/server: " << (int) type << " " << body << std::endl;
     }
 };
 
