@@ -43,3 +43,6 @@ add_executable(FuncVerifyTest Tests/FuncVerifyTest.cpp ${SRCS})
 
 # logger stop test
 add_executable(LoggerTest Tests/LoggerTest.cpp ${THIRD_SRCS})
+
+# varintTest test
+add_executable(VarintTest Tests/VarintTest.cpp ${SRCS})

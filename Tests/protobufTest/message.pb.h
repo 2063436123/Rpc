@@ -46,7 +46,7 @@ struct TableStruct_message_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -60,10 +60,30 @@ extern HelloRequestDefaultTypeInternal _HelloRequest_default_instance_;
 class HelloResponse;
 struct HelloResponseDefaultTypeInternal;
 extern HelloResponseDefaultTypeInternal _HelloResponse_default_instance_;
+class Ints;
+struct IntsDefaultTypeInternal;
+extern IntsDefaultTypeInternal _Ints_default_instance_;
+class Ldls;
+struct LdlsDefaultTypeInternal;
+extern LdlsDefaultTypeInternal _Ldls_default_instance_;
+class aInt;
+struct aIntDefaultTypeInternal;
+extern aIntDefaultTypeInternal _aInt_default_instance_;
+class complexType;
+struct complexTypeDefaultTypeInternal;
+extern complexTypeDefaultTypeInternal _complexType_default_instance_;
+class fixed_ints;
+struct fixed_intsDefaultTypeInternal;
+extern fixed_intsDefaultTypeInternal _fixed_ints_default_instance_;
 }  // namespace Hello
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Hello::HelloRequest* Arena::CreateMaybeMessage<::Hello::HelloRequest>(Arena*);
 template<> ::Hello::HelloResponse* Arena::CreateMaybeMessage<::Hello::HelloResponse>(Arena*);
+template<> ::Hello::Ints* Arena::CreateMaybeMessage<::Hello::Ints>(Arena*);
+template<> ::Hello::Ldls* Arena::CreateMaybeMessage<::Hello::Ldls>(Arena*);
+template<> ::Hello::aInt* Arena::CreateMaybeMessage<::Hello::aInt>(Arena*);
+template<> ::Hello::complexType* Arena::CreateMaybeMessage<::Hello::complexType>(Arena*);
+template<> ::Hello::fixed_ints* Arena::CreateMaybeMessage<::Hello::fixed_ints>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Hello {
 
@@ -429,6 +449,856 @@ class HelloResponse final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr str_;
   friend struct ::TableStruct_message_2eproto;
 };
+// -------------------------------------------------------------------
+
+class Ints final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hello.Ints) */ {
+ public:
+  inline Ints() : Ints(nullptr) {}
+  ~Ints() override;
+  explicit constexpr Ints(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Ints(const Ints& from);
+  Ints(Ints&& from) noexcept
+    : Ints() {
+    *this = ::std::move(from);
+  }
+
+  inline Ints& operator=(const Ints& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Ints& operator=(Ints&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Ints& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Ints* internal_default_instance() {
+    return reinterpret_cast<const Ints*>(
+               &_Ints_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(Ints& a, Ints& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Ints* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Ints* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Ints* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Ints>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Ints& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Ints& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Ints* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Hello.Ints";
+  }
+  protected:
+  explicit Ints(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAFieldNumber = 1,
+    kBFieldNumber = 2,
+    kCFieldNumber = 3,
+    kDFieldNumber = 4,
+  };
+  // optional int32 a = 1;
+  bool has_a() const;
+  private:
+  bool _internal_has_a() const;
+  public:
+  void clear_a();
+  int32_t a() const;
+  void set_a(int32_t value);
+  private:
+  int32_t _internal_a() const;
+  void _internal_set_a(int32_t value);
+  public:
+
+  // optional int32 b = 2;
+  bool has_b() const;
+  private:
+  bool _internal_has_b() const;
+  public:
+  void clear_b();
+  int32_t b() const;
+  void set_b(int32_t value);
+  private:
+  int32_t _internal_b() const;
+  void _internal_set_b(int32_t value);
+  public:
+
+  // optional sint32 c = 3;
+  bool has_c() const;
+  private:
+  bool _internal_has_c() const;
+  public:
+  void clear_c();
+  int32_t c() const;
+  void set_c(int32_t value);
+  private:
+  int32_t _internal_c() const;
+  void _internal_set_c(int32_t value);
+  public:
+
+  // optional fixed32 d = 4;
+  bool has_d() const;
+  private:
+  bool _internal_has_d() const;
+  public:
+  void clear_d();
+  uint32_t d() const;
+  void set_d(uint32_t value);
+  private:
+  uint32_t _internal_d() const;
+  void _internal_set_d(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Hello.Ints)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int32_t a_;
+  int32_t b_;
+  int32_t c_;
+  uint32_t d_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class fixed_ints final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hello.fixed_ints) */ {
+ public:
+  inline fixed_ints() : fixed_ints(nullptr) {}
+  ~fixed_ints() override;
+  explicit constexpr fixed_ints(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  fixed_ints(const fixed_ints& from);
+  fixed_ints(fixed_ints&& from) noexcept
+    : fixed_ints() {
+    *this = ::std::move(from);
+  }
+
+  inline fixed_ints& operator=(const fixed_ints& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline fixed_ints& operator=(fixed_ints&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const fixed_ints& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const fixed_ints* internal_default_instance() {
+    return reinterpret_cast<const fixed_ints*>(
+               &_fixed_ints_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(fixed_ints& a, fixed_ints& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(fixed_ints* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(fixed_ints* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  fixed_ints* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<fixed_ints>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const fixed_ints& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const fixed_ints& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(fixed_ints* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Hello.fixed_ints";
+  }
+  protected:
+  explicit fixed_ints(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMFieldNumber = 2,
+    kNFieldNumber = 1,
+  };
+  // optional fixed64 m = 2;
+  bool has_m() const;
+  private:
+  bool _internal_has_m() const;
+  public:
+  void clear_m();
+  uint64_t m() const;
+  void set_m(uint64_t value);
+  private:
+  uint64_t _internal_m() const;
+  void _internal_set_m(uint64_t value);
+  public:
+
+  // optional fixed32 n = 1;
+  bool has_n() const;
+  private:
+  bool _internal_has_n() const;
+  public:
+  void clear_n();
+  uint32_t n() const;
+  void set_n(uint32_t value);
+  private:
+  uint32_t _internal_n() const;
+  void _internal_set_n(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Hello.fixed_ints)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint64_t m_;
+  uint32_t n_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Ldls final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hello.Ldls) */ {
+ public:
+  inline Ldls() : Ldls(nullptr) {}
+  ~Ldls() override;
+  explicit constexpr Ldls(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Ldls(const Ldls& from);
+  Ldls(Ldls&& from) noexcept
+    : Ldls() {
+    *this = ::std::move(from);
+  }
+
+  inline Ldls& operator=(const Ldls& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Ldls& operator=(Ldls&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Ldls& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Ldls* internal_default_instance() {
+    return reinterpret_cast<const Ldls*>(
+               &_Ldls_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(Ldls& a, Ldls& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Ldls* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Ldls* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Ldls* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Ldls>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Ldls& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Ldls& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Ldls* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Hello.Ldls";
+  }
+  protected:
+  explicit Ldls(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVecFieldNumber = 2,
+    kStrFieldNumber = 1,
+  };
+  // repeated int32 vec = 2;
+  int vec_size() const;
+  private:
+  int _internal_vec_size() const;
+  public:
+  void clear_vec();
+  private:
+  int32_t _internal_vec(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      _internal_vec() const;
+  void _internal_add_vec(int32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      _internal_mutable_vec();
+  public:
+  int32_t vec(int index) const;
+  void set_vec(int index, int32_t value);
+  void add_vec(int32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      vec() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      mutable_vec();
+
+  // optional string str = 1;
+  bool has_str() const;
+  private:
+  bool _internal_has_str() const;
+  public:
+  void clear_str();
+  const std::string& str() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_str(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_str();
+  PROTOBUF_NODISCARD std::string* release_str();
+  void set_allocated_str(std::string* str);
+  private:
+  const std::string& _internal_str() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_str(const std::string& value);
+  std::string* _internal_mutable_str();
+  public:
+
+  // @@protoc_insertion_point(class_scope:Hello.Ldls)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t > vec_;
+  mutable std::atomic<int> _vec_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr str_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class aInt final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hello.aInt) */ {
+ public:
+  inline aInt() : aInt(nullptr) {}
+  ~aInt() override;
+  explicit constexpr aInt(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  aInt(const aInt& from);
+  aInt(aInt&& from) noexcept
+    : aInt() {
+    *this = ::std::move(from);
+  }
+
+  inline aInt& operator=(const aInt& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline aInt& operator=(aInt&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const aInt& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const aInt* internal_default_instance() {
+    return reinterpret_cast<const aInt*>(
+               &_aInt_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(aInt& a, aInt& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(aInt* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(aInt* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  aInt* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<aInt>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const aInt& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const aInt& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(aInt* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Hello.aInt";
+  }
+  protected:
+  explicit aInt(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAFieldNumber = 1,
+  };
+  // optional int32 a = 1;
+  bool has_a() const;
+  private:
+  bool _internal_has_a() const;
+  public:
+  void clear_a();
+  int32_t a() const;
+  void set_a(int32_t value);
+  private:
+  int32_t _internal_a() const;
+  void _internal_set_a(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Hello.aInt)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int32_t a_;
+  friend struct ::TableStruct_message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class complexType final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Hello.complexType) */ {
+ public:
+  inline complexType() : complexType(nullptr) {}
+  ~complexType() override;
+  explicit constexpr complexType(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  complexType(const complexType& from);
+  complexType(complexType&& from) noexcept
+    : complexType() {
+    *this = ::std::move(from);
+  }
+
+  inline complexType& operator=(const complexType& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline complexType& operator=(complexType&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const complexType& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const complexType* internal_default_instance() {
+    return reinterpret_cast<const complexType*>(
+               &_complexType_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(complexType& a, complexType& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(complexType* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(complexType* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  complexType* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<complexType>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const complexType& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const complexType& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(complexType* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Hello.complexType";
+  }
+  protected:
+  explicit complexType(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBFieldNumber = 2,
+  };
+  // optional .Hello.aInt b = 2;
+  bool has_b() const;
+  private:
+  bool _internal_has_b() const;
+  public:
+  void clear_b();
+  const ::Hello::aInt& b() const;
+  PROTOBUF_NODISCARD ::Hello::aInt* release_b();
+  ::Hello::aInt* mutable_b();
+  void set_allocated_b(::Hello::aInt* b);
+  private:
+  const ::Hello::aInt& _internal_b() const;
+  ::Hello::aInt* _internal_mutable_b();
+  public:
+  void unsafe_arena_set_allocated_b(
+      ::Hello::aInt* b);
+  ::Hello::aInt* unsafe_arena_release_b();
+
+  // @@protoc_insertion_point(class_scope:Hello.complexType)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::Hello::aInt* b_;
+  friend struct ::TableStruct_message_2eproto;
+};
 // ===================================================================
 
 
@@ -676,9 +1546,441 @@ HelloResponse::mutable_vec() {
   return _internal_mutable_vec();
 }
 
+// -------------------------------------------------------------------
+
+// Ints
+
+// optional int32 a = 1;
+inline bool Ints::_internal_has_a() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Ints::has_a() const {
+  return _internal_has_a();
+}
+inline void Ints::clear_a() {
+  a_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t Ints::_internal_a() const {
+  return a_;
+}
+inline int32_t Ints::a() const {
+  // @@protoc_insertion_point(field_get:Hello.Ints.a)
+  return _internal_a();
+}
+inline void Ints::_internal_set_a(int32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  a_ = value;
+}
+inline void Ints::set_a(int32_t value) {
+  _internal_set_a(value);
+  // @@protoc_insertion_point(field_set:Hello.Ints.a)
+}
+
+// optional int32 b = 2;
+inline bool Ints::_internal_has_b() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Ints::has_b() const {
+  return _internal_has_b();
+}
+inline void Ints::clear_b() {
+  b_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int32_t Ints::_internal_b() const {
+  return b_;
+}
+inline int32_t Ints::b() const {
+  // @@protoc_insertion_point(field_get:Hello.Ints.b)
+  return _internal_b();
+}
+inline void Ints::_internal_set_b(int32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  b_ = value;
+}
+inline void Ints::set_b(int32_t value) {
+  _internal_set_b(value);
+  // @@protoc_insertion_point(field_set:Hello.Ints.b)
+}
+
+// optional sint32 c = 3;
+inline bool Ints::_internal_has_c() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Ints::has_c() const {
+  return _internal_has_c();
+}
+inline void Ints::clear_c() {
+  c_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline int32_t Ints::_internal_c() const {
+  return c_;
+}
+inline int32_t Ints::c() const {
+  // @@protoc_insertion_point(field_get:Hello.Ints.c)
+  return _internal_c();
+}
+inline void Ints::_internal_set_c(int32_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  c_ = value;
+}
+inline void Ints::set_c(int32_t value) {
+  _internal_set_c(value);
+  // @@protoc_insertion_point(field_set:Hello.Ints.c)
+}
+
+// optional fixed32 d = 4;
+inline bool Ints::_internal_has_d() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool Ints::has_d() const {
+  return _internal_has_d();
+}
+inline void Ints::clear_d() {
+  d_ = 0u;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline uint32_t Ints::_internal_d() const {
+  return d_;
+}
+inline uint32_t Ints::d() const {
+  // @@protoc_insertion_point(field_get:Hello.Ints.d)
+  return _internal_d();
+}
+inline void Ints::_internal_set_d(uint32_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  d_ = value;
+}
+inline void Ints::set_d(uint32_t value) {
+  _internal_set_d(value);
+  // @@protoc_insertion_point(field_set:Hello.Ints.d)
+}
+
+// -------------------------------------------------------------------
+
+// fixed_ints
+
+// optional fixed32 n = 1;
+inline bool fixed_ints::_internal_has_n() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool fixed_ints::has_n() const {
+  return _internal_has_n();
+}
+inline void fixed_ints::clear_n() {
+  n_ = 0u;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint32_t fixed_ints::_internal_n() const {
+  return n_;
+}
+inline uint32_t fixed_ints::n() const {
+  // @@protoc_insertion_point(field_get:Hello.fixed_ints.n)
+  return _internal_n();
+}
+inline void fixed_ints::_internal_set_n(uint32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  n_ = value;
+}
+inline void fixed_ints::set_n(uint32_t value) {
+  _internal_set_n(value);
+  // @@protoc_insertion_point(field_set:Hello.fixed_ints.n)
+}
+
+// optional fixed64 m = 2;
+inline bool fixed_ints::_internal_has_m() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool fixed_ints::has_m() const {
+  return _internal_has_m();
+}
+inline void fixed_ints::clear_m() {
+  m_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint64_t fixed_ints::_internal_m() const {
+  return m_;
+}
+inline uint64_t fixed_ints::m() const {
+  // @@protoc_insertion_point(field_get:Hello.fixed_ints.m)
+  return _internal_m();
+}
+inline void fixed_ints::_internal_set_m(uint64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  m_ = value;
+}
+inline void fixed_ints::set_m(uint64_t value) {
+  _internal_set_m(value);
+  // @@protoc_insertion_point(field_set:Hello.fixed_ints.m)
+}
+
+// -------------------------------------------------------------------
+
+// Ldls
+
+// optional string str = 1;
+inline bool Ldls::_internal_has_str() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Ldls::has_str() const {
+  return _internal_has_str();
+}
+inline void Ldls::clear_str() {
+  str_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& Ldls::str() const {
+  // @@protoc_insertion_point(field_get:Hello.Ldls.str)
+  return _internal_str();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Ldls::set_str(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ str_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Hello.Ldls.str)
+}
+inline std::string* Ldls::mutable_str() {
+  std::string* _s = _internal_mutable_str();
+  // @@protoc_insertion_point(field_mutable:Hello.Ldls.str)
+  return _s;
+}
+inline const std::string& Ldls::_internal_str() const {
+  return str_.Get();
+}
+inline void Ldls::_internal_set_str(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  str_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Ldls::_internal_mutable_str() {
+  _has_bits_[0] |= 0x00000001u;
+  return str_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Ldls::release_str() {
+  // @@protoc_insertion_point(field_release:Hello.Ldls.str)
+  if (!_internal_has_str()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = str_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (str_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    str_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void Ldls::set_allocated_str(std::string* str) {
+  if (str != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  str_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), str,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (str_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    str_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Hello.Ldls.str)
+}
+
+// repeated int32 vec = 2;
+inline int Ldls::_internal_vec_size() const {
+  return vec_.size();
+}
+inline int Ldls::vec_size() const {
+  return _internal_vec_size();
+}
+inline void Ldls::clear_vec() {
+  vec_.Clear();
+}
+inline int32_t Ldls::_internal_vec(int index) const {
+  return vec_.Get(index);
+}
+inline int32_t Ldls::vec(int index) const {
+  // @@protoc_insertion_point(field_get:Hello.Ldls.vec)
+  return _internal_vec(index);
+}
+inline void Ldls::set_vec(int index, int32_t value) {
+  vec_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Hello.Ldls.vec)
+}
+inline void Ldls::_internal_add_vec(int32_t value) {
+  vec_.Add(value);
+}
+inline void Ldls::add_vec(int32_t value) {
+  _internal_add_vec(value);
+  // @@protoc_insertion_point(field_add:Hello.Ldls.vec)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+Ldls::_internal_vec() const {
+  return vec_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+Ldls::vec() const {
+  // @@protoc_insertion_point(field_list:Hello.Ldls.vec)
+  return _internal_vec();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+Ldls::_internal_mutable_vec() {
+  return &vec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+Ldls::mutable_vec() {
+  // @@protoc_insertion_point(field_mutable_list:Hello.Ldls.vec)
+  return _internal_mutable_vec();
+}
+
+// -------------------------------------------------------------------
+
+// aInt
+
+// optional int32 a = 1;
+inline bool aInt::_internal_has_a() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool aInt::has_a() const {
+  return _internal_has_a();
+}
+inline void aInt::clear_a() {
+  a_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t aInt::_internal_a() const {
+  return a_;
+}
+inline int32_t aInt::a() const {
+  // @@protoc_insertion_point(field_get:Hello.aInt.a)
+  return _internal_a();
+}
+inline void aInt::_internal_set_a(int32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  a_ = value;
+}
+inline void aInt::set_a(int32_t value) {
+  _internal_set_a(value);
+  // @@protoc_insertion_point(field_set:Hello.aInt.a)
+}
+
+// -------------------------------------------------------------------
+
+// complexType
+
+// optional .Hello.aInt b = 2;
+inline bool complexType::_internal_has_b() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || b_ != nullptr);
+  return value;
+}
+inline bool complexType::has_b() const {
+  return _internal_has_b();
+}
+inline void complexType::clear_b() {
+  if (b_ != nullptr) b_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::Hello::aInt& complexType::_internal_b() const {
+  const ::Hello::aInt* p = b_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Hello::aInt&>(
+      ::Hello::_aInt_default_instance_);
+}
+inline const ::Hello::aInt& complexType::b() const {
+  // @@protoc_insertion_point(field_get:Hello.complexType.b)
+  return _internal_b();
+}
+inline void complexType::unsafe_arena_set_allocated_b(
+    ::Hello::aInt* b) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(b_);
+  }
+  b_ = b;
+  if (b) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Hello.complexType.b)
+}
+inline ::Hello::aInt* complexType::release_b() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::Hello::aInt* temp = b_;
+  b_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Hello::aInt* complexType::unsafe_arena_release_b() {
+  // @@protoc_insertion_point(field_release:Hello.complexType.b)
+  _has_bits_[0] &= ~0x00000001u;
+  ::Hello::aInt* temp = b_;
+  b_ = nullptr;
+  return temp;
+}
+inline ::Hello::aInt* complexType::_internal_mutable_b() {
+  _has_bits_[0] |= 0x00000001u;
+  if (b_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Hello::aInt>(GetArenaForAllocation());
+    b_ = p;
+  }
+  return b_;
+}
+inline ::Hello::aInt* complexType::mutable_b() {
+  ::Hello::aInt* _msg = _internal_mutable_b();
+  // @@protoc_insertion_point(field_mutable:Hello.complexType.b)
+  return _msg;
+}
+inline void complexType::set_allocated_b(::Hello::aInt* b) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete b_;
+  }
+  if (b) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Hello::aInt>::GetOwningArena(b);
+    if (message_arena != submessage_arena) {
+      b = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, b, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  b_ = b;
+  // @@protoc_insertion_point(field_set_allocated:Hello.complexType.b)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

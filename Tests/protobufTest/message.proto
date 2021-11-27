@@ -11,3 +11,31 @@ message HelloResponse {
   optional string str = 1;
   repeated int32 vec = 2;
 }
+
+// tag: field_num << 3 | wire_type
+// Varint: tag + varint
+message Ints {
+  optional int32 a = 1;
+  optional int32 b = 2;
+  optional sint32 c = 3;
+  optional fixed32 d = 4;
+}
+
+message fixed_ints {
+  optional fixed32 n = 1;
+  optional fixed64 m = 2;
+}
+
+// TLV: tag + length + value
+message Ldls {
+  optional string str = 1;
+  repeated int32 vec = 2;
+}
+
+message aInt {
+  optional int32 a = 1;
+}
+
+message complexType {
+  optional aInt b = 2;
+}
